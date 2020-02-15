@@ -1,0 +1,279 @@
+/mob/living/carbon/human/skeleton/Initialize(mapload)
+	. = ..(mapload, "Skeleton")
+
+/datum/species/skeleton //SPOOKY
+	name = "Skeleton"
+	name_plural = "skeletons"
+	bodytype = "Skeleton"
+	icobase = 'icons/mob/human_races/r_skeleton.dmi'
+	deform = 'icons/mob/human_races/r_skeleton.dmi'
+	eyes = "blank_eyes"
+
+	default_language = "Ceti Basic"
+	language = "Cult"
+	name_language = "Cult"
+	unarmed_types = list(/datum/unarmed_attack/claws/strong, /datum/unarmed_attack/bite/sharp)
+	darksight = 8
+	has_organ = list() //skeletons are empty shells for now, maybe we can add something in the future
+	siemens_coefficient = 0
+	ethanol_resistance = -1 //no drunk skeletons
+	taste_sensitivity = TASTE_NUMB
+	breakcuffs = list(MALE,FEMALE,NEUTER)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/undead
+
+	reagent_tag = IS_UNDEAD
+
+	virus_immune = 1
+
+	rarity_value = 10
+	blurb = "Skeletons are undead brought back to life through dark wizardry, \
+	they are empty shells fueled by sheer obscure power and blood-magic. \
+	However, some men are cursed to carry such burden due to vile curses."
+
+	warning_low_pressure = 50 //immune to pressure, so they can into space/survive breaches without worries
+	hazard_low_pressure = 0
+
+	cold_level_1 = 80
+	cold_level_2 = 50
+	cold_level_3 = 0
+
+	body_temperature = T0C //skeletons are cold
+
+	blood_color = "#CCCCCC"
+	flesh_color = "#AAAAAA"
+
+	remains_type = /obj/effect/decal/cleanable/ash
+
+	death_message = "collapses, their bones clattering in a symphony of demise..."
+	death_message_range = 7
+	death_sound = 'sound/effects/falling_bones.ogg'
+
+	breath_type = null
+	poison_type = null
+
+	flags = NO_BLOOD | NO_SCAN | NO_SLIP | NO_POISON | NO_PAIN | NO_BREATHE | NO_EMBED | NO_CHUBBY
+	spawn_flags = IS_RESTRICTED
+
+	has_limbs = list(
+		BP_CHEST =  list("path" = /obj/item/organ/external/chest/skeleton),
+		BP_GROIN =  list("path" = /obj/item/organ/external/groin/skeleton),
+		BP_HEAD =   list("path" = /obj/item/organ/external/head/skeleton),
+		BP_L_ARM =  list("path" = /obj/item/organ/external/arm/skeleton),
+		BP_R_ARM =  list("path" = /obj/item/organ/external/arm/right/skeleton),
+		BP_L_LEG =  list("path" = /obj/item/organ/external/leg/skeleton),
+		BP_R_LEG =  list("path" = /obj/item/organ/external/leg/right/skeleton),
+		BP_L_HAND = list("path" = /obj/item/organ/external/hand/skeleton),
+		BP_R_HAND = list("path" = /obj/item/organ/external/hand/right/skeleton),
+		BP_L_FOOT = list("path" = /obj/item/organ/external/foot/skeleton),
+		BP_R_FOOT = list("path" = /obj/item/organ/external/foot/right/skeleton)
+		)
+
+	stamina	=	500			  //Tireless automatons
+	stamina_recovery = 1
+	sprint_speed_factor = 0.3
+	exhaust_threshold = 0 //No oxyloss, so zero threshold
+
+	max_nutrition_factor = -1
+
+	max_hydration_factor = -1
+
+	hud_type = /datum/hud_data/construct
+
+/mob/living/carbon/human/apparition/Initialize(mapload)
+	. = ..(mapload, "Apparition")
+
+/datum/species/apparition
+	name = "Apparition"
+	name_plural = "apparitions"
+	bodytype = "Apparition"
+	icobase = 'icons/mob/human_races/r_manifested.dmi'
+	deform = 'icons/mob/human_races/r_manifested.dmi'
+
+	default_language = "Ceti Basic"
+	language = "Cult"
+	name_language = "Cult"
+	has_organ = list()
+
+	virus_immune = 1
+
+	reagent_tag = IS_UNDEAD
+
+	rarity_value = 10
+	blurb = "Apparitions are vengeful spirits, they are given temporary bodies to fulfill the wicked \
+	desires of their masters. A common sight among the ranks of the geometer of blood."
+
+	remains_type = /obj/effect/decal/cleanable/ash
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/undead
+
+	flesh_color = "#551A8B"
+
+	flags = NO_BLOOD | NO_SCAN | NO_SLIP | NO_POISON | NO_PAIN | NO_BREATHE | NO_EMBED
+	spawn_flags = IS_RESTRICTED
+
+	stamina	=	500			  //Tireless automatons
+	stamina_recovery = 1
+	sprint_speed_factor = 0.3
+	exhaust_threshold = 0 //No oxyloss, so zero threshold
+
+	max_nutrition_factor = -1
+
+	max_hydration_factor = -1
+
+	hud_type = /datum/hud_data/construct
+
+/datum/species/apparition/handle_death(var/mob/living/carbon/human/H)
+	set waitfor = 0
+	sleep(1)
+	new /obj/effect/decal/cleanable/ash(H.loc)
+	qdel(H)
+
+
+/mob/living/carbon/human/zombie/Initialize(mapload)
+	. = ..(mapload, "Zombie")
+
+/datum/species/zombie
+	name = "Zombie"
+	name_plural = "Zombies"
+	bodytype = "Human"
+	icobase = 'icons/mob/human_races/zombie/r_zombie.dmi'
+	deform = 'icons/mob/human_races/zombie/r_zombie.dmi'
+
+	hide_name = TRUE
+
+	name_language = null // Use the first-name last-name generator rather than a language scrambler
+
+	language = null
+	default_language = LANGUAGE_GIBBERING
+
+	unarmed_types = list(/datum/unarmed_attack/bite/infectious, /datum/unarmed_attack/claws/strong)
+	darksight = 8
+
+	has_fine_manipulation = FALSE
+
+	speech_sounds = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg')
+	speech_chance = 50
+
+	ethanol_resistance = -1
+	taste_sensitivity = TASTE_NUMB
+	breakcuffs = list(MALE,FEMALE,NEUTER)
+
+	has_organ = list(
+		"zombie" =    /obj/item/organ/internal/parasite/zombie,
+		BP_BRAIN =    /obj/item/organ/internal/brain
+		)
+
+	virus_immune = 1
+
+	vision_flags = DEFAULT_SIGHT | SEE_MOBS
+
+	reagent_tag = IS_UNDEAD
+
+	rarity_value = 10
+	blurb = "Once a living person, this unholy creature was created either by the power of science or necromancy."
+
+	remains_type = /obj/effect/decal/remains/human
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/undead
+
+	flesh_color = "#76a05e"
+
+	flags = NO_BLOOD | NO_SCAN | NO_SLIP | NO_POISON | NO_PAIN | NO_BREATHE
+	appearance_flags = HAS_HAIR_COLOR | HAS_SKIN_TONE | HAS_LIPS | HAS_UNDERWEAR | HAS_EYE_COLOR | HAS_SOCKS
+	spawn_flags = IS_RESTRICTED
+
+	stamina	=	500			  //Tireless automatons
+	stamina_recovery = 1
+	sprint_speed_factor = 0.3
+	exhaust_threshold = 0 //No oxyloss, so zero threshold
+
+	inherent_verbs = list(/mob/living/carbon/human/proc/darkness_eyes, /mob/living/proc/devour)
+
+	allowed_eat_types = TYPE_ORGANIC | TYPE_HUMANOID
+
+	gluttonous = TRUE
+
+/datum/species/zombie/handle_post_spawn(var/mob/living/carbon/human/H)
+	H.mutations.Add(CLUMSY)
+	return ..()
+
+/datum/species/zombie/tajara
+	name = "Tajara Zombie"
+	name_plural = "Tajara Zombies"
+	bodytype = "Tajara"
+	icobase = 'icons/mob/human_races/zombie/r_zombie_tajara.dmi'
+	deform = 'icons/mob/human_races/zombie/r_zombie_tajara.dmi'
+	tail = "tajtail"
+	tail_animation = 'icons/mob/species/tajaran/tail.dmi'
+
+	slowdown = -1
+	brute_mod = 1.2
+	fall_mod = 0.5
+
+	name_language = LANGUAGE_SIIK_MAAS
+
+	remains_type = /obj/effect/decal/remains/xeno
+
+	move_trail = /obj/effect/decal/cleanable/blood/tracks/paw
+
+	default_h_style = "Tajaran Ears"
+
+	appearance_flags = HAS_HAIR_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_COLOR | HAS_EYE_COLOR
+
+/datum/species/zombie/unathi
+	name = "Unathi Zombie"
+	name_plural = "Unathi Zombies"
+	bodytype = "Unathi"
+	icobase = 'icons/mob/human_races/zombie/r_zombie_unathi.dmi'
+	deform = 'icons/mob/human_races/zombie/r_zombie_unathi.dmi'
+	tail = "sogtail"
+	tail_animation = 'icons/mob/species/unathi/tail.dmi'
+
+	slowdown = 0.5
+	brute_mod = 0.8
+	grab_mod = 0.75
+	fall_mod = 1.2
+
+	mob_size = 10
+	climb_coeff = 1.35
+
+	name_language = LANGUAGE_UNATHI
+
+	remains_type = /obj/effect/decal/remains/xeno
+
+	move_trail = /obj/effect/decal/cleanable/blood/tracks/claw
+
+	appearance_flags = HAS_HAIR_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_COLOR | HAS_EYE_COLOR
+
+/datum/species/zombie/skrell
+	name = "Skrell Zombie"
+	name_plural = "Skrell Zombies"
+	bodytype = "Skrell"
+	icobase = 'icons/mob/human_races/zombie/r_zombie_skrell.dmi'
+	deform = 'icons/mob/human_races/zombie/r_zombie_skrell.dmi'
+
+	grab_mod = 1.25
+
+	name_language = LANGUAGE_SKRELLIAN
+
+	appearance_flags = HAS_HAIR_COLOR | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_COLOR | HAS_SOCKS
+
+	inherent_verbs = list(
+	/mob/living/carbon/human/proc/commune,
+	/mob/living/carbon/human/proc/sonar_ping,
+	/mob/living/carbon/human/proc/darkness_eyes,
+	/mob/living/proc/devour
+	)
+
+	flesh_color = "#8CD7A3"
+	blood_color = "#1D2CBF"
+
+	remains_type = /obj/effect/decal/remains/xeno
+
+	has_organ = list(
+		"zombie" =    /obj/item/organ/internal/parasite/zombie,
+		/obj/item/organ/internal/brain/skrell
+		)
+
+	default_h_style = "Skrell Short Tentacles"
