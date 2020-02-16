@@ -205,23 +205,24 @@ datum/preferences
 /proc/CalculateSkillClass(points, age)
 	if(points <= 0) return "Unconfigured"
 	// skill classes describe how your character compares in total points
-	points -= min(round((age - 20) / 2.5), 4) // every 2.5 years after 20, one extra skillpoint
-	if(age > 30)
-		points -= round((age - 30) / 5) // every 5 years after 30, one extra skillpoint
+	//commented out this part for FO13
+//	points -= min(round((age - 20) / 2.5), 4) // every 2.5 years after 20, one extra skillpoint
+//	if(age > 30)
+//		points -= round((age - 30) / 5) // every 5 years after 30, one extra skillpoint
 	switch(points)
-		if(-1000 to 3)
+		if(-1000 to 10)
 			return "Terrifying"
-		if(4 to 6)
+		if(10 to 12)
 			return "Below Average"
-		if(7 to 10)
+		if(13 to 16)
 			return "Average"
-		if(11 to 14)
+		if(17 to 20)
 			return "Above Average"
-		if(15 to 18)
+		if(21 to 24)
 			return "Exceptional"
-		if(19 to 24)
+		if(25 to 31)
 			return "Genius"
-		if(24 to 1000)
+		if(32 to 1000)
 			return "God"
 
 /datum/preferences/proc/ShowChoices(mob/user)
